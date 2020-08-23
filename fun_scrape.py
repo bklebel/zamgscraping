@@ -4,7 +4,6 @@ from urllib.request import Request, urlopen
 import urllib
 import re
 import time
-import sys
 import logging
 logger = logging.getLogger()
 
