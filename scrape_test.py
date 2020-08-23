@@ -1,14 +1,7 @@
-import time
-from copy import deepcopy
-import sys
-
-from fun_scrape import scrape_time
-from fun_scrape import scrape_innerestadt
 
 
 from fun_scrape import read_page
 from bs4 import BeautifulSoup
-import re
 # from prometheus_client import start_http_server
 from prometheus_client import Gauge
 
