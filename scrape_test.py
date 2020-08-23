@@ -23,7 +23,7 @@ print(prom_Gauges)
 
 
 def scr_Wien_all(page):
-    data = dict()
+    data = {}
     soup = BeautifulSoup(page, features="html.parser")
     # print(soup.findAll('class="text_right wert selected"'))
     # print(soup)
