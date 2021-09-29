@@ -46,17 +46,12 @@ def scr_Wien_all(page):
     """scrape relevant data"""
     data = {}
     soup = BeautifulSoup(page, features="html.parser")
-    # print(soup.findAll('class="text_right wert selected"'))
-    # print(soup)
     table = soup.find("table", attrs={"class": "dynPageTable"})
-    # print(table)
 
     rows = table.findAll("tr", {"class": "dynPageTableLine1"}) + table.findAll(
         "tr", {"class": "dynPageTableLine2"}
     )
-    # print('')
     for x in rows:
-        # print(x)
         name = x.find("td", {"class": "wert"}).text
         name_corr = (
             name.replace(" ", "_", 5)
@@ -64,7 +59,6 @@ def scr_Wien_all(page):
             .replace("ß", "ss", 3)
             .replace("-", "_", 5)
         )
-        # print(x.find('td', {'class': 'wert'}).text)
         temperature = float(
             x.find("td", {"class": "text_right wert selected"}).text[:-1]
         )
@@ -85,8 +79,6 @@ def scr_Wien_all(page):
             sun=sun,
             pressure=pressure,
         )
-        # print(float(x.find('td', {'class': 'text_right wert selected'}).text[:-1]))
-    # print(data)
     return data
 
 
@@ -97,7 +89,6 @@ def scr_T(page):
     date = re.findall(
         r"Aktuelle Messwerte der Wetterstationen von ([0-9]{2})", str(string)
     )
-    # print(date[0])
     try:
         d = float(date[0])
     except ValueError as e:
