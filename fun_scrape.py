@@ -1,3 +1,6 @@
+#!/usr/bin/python
+#-*- coding:utf-8 -*-
+
 from bs4 import BeautifulSoup
 from urllib.request import Request, urlopen
 import urllib
@@ -5,6 +8,8 @@ import sys
 import re
 import time
 import logging
+
+from numpy import NaN
 
 logger = logging.getLogger()
 
@@ -42,6 +47,14 @@ def read_page(site, **kwargs):
         return read_page(site)
 
 
+def extract_value(variable):
+    try:
+        var = float(variable)
+    except ValueError:
+        # if w.text == "n.v.":
+        var = NaN 
+    return var
+
 def scr_Wien_all(page):
     """scrape relevant data"""
     data = {}
@@ -59,18 +72,22 @@ def scr_Wien_all(page):
             .replace("ß", "ss", 3)
             .replace("-", "_", 5)
         )
-        temperature = float(
+        temperature = extract_value(
             x.find("td", {"class": "text_right wert selected"}).text[:-1]
         )
-        humidity = float(x.find("td", {"class": "text_center wert"}).text[:-2])
+        humidity = extract_value(x.find("td", {"class": "text_center wert"}).text[:-2])
 
         w = x.findNext("td", {"class": "wert text_right"})
-        wind = float(w.text[:-4])
+        wind = extract_value(w.text[:-4])
+
         p = w.findNext("td", {"class": "wert text_right"})
-        precipitation = float(p.text[:-3])
-        sun = float(x.find("td", {"class": "wert text_center"}).text[:-2])
+        precipitation = extract_value(p.text[:-3])
+
+        sun = extract_value(x.find("td", {"class": "wert text_center"}).text[:-2])
+
         press = p.findNext("td", {"class": "wert text_right"})
-        pressure = float(press.text[:-4])
+        pressure = extract_value(press.text[:-4])
+        
         data[name_corr] = dict(
             temperature=temperature,
             humidity=humidity,
