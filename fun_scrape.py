@@ -28,7 +28,7 @@ class recursionlimit:
     def __enter__(self):
         sys.setrecursionlimit(self.limit_inside)
 
-    def __exit__(self, type, value, tb):
+    def __exit__(self, type_, value, tb):
         sys.setrecursionlimit(self.limit_outside)
 
 
@@ -43,7 +43,7 @@ def read_page(site, **kwargs):
     except urllib.error.URLError as e:
         time.sleep(0.1)
         logger.exception(e)
-        logging.error("ZamgScraping URLError: {}".format(e.reason))
+        logging.error("ZamgScraping URLError: %s", e.reason)
         return read_page(site)
 
 
@@ -87,7 +87,7 @@ def scr_Wien_all(page):
 
         press = p.findNext("td", {"class": "wert text_right"})
         pressure = extract_value(press.text[:-4])
-        
+
         data[name_corr] = dict(
             temperature=temperature,
             humidity=humidity,

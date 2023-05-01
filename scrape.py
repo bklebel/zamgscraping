@@ -64,7 +64,6 @@ try:
     while True:
         t = scrape_time()
         if t != t0:
-            # temps = scrape_Wien_temps()
             data = scrape_Wien_all()
             for place in data:
                 for m in data[place]:
@@ -73,7 +72,6 @@ try:
                 abs_hum = humidity_absolute(data[place]["humidity"], data[place]["temperature"])
                 prom_Gauges[place]["humidity_absolute"].set(abs_hum)
                 root.debug("recorded: %s", (place, "humidity absolute", abs_hum)    )
-            # sys.exit()
             t0 = deepcopy(t)
             try:
                 first

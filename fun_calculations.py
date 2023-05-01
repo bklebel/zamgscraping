@@ -27,8 +27,3 @@ def temperature_kelvin(T):
 
 def humidity_absolute(r, T):
 	return around(1e5 * m_W/R * vapor_pressure(r, T)/temperature_kelvin(T), decimals=2)
-
-
-# temperature = 25.3
-# humidity = 50
-# print(humidity_absolute(humidity, temperature))
